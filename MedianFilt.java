@@ -154,22 +154,25 @@ public class MedianFilt{
 
 			//System.out.println(ffl[1]);
 			float[] Arr1 = new float[numE];
+			int var = 0;
 
-			for(int i = 1; i < numE+1; i++){
+			for(int i = 1; i < ((numE+1)*2); i+=2){
 
 				if(i!=1){
 
-					if(i%2==0){
-						Arr1[i-1] = Float.parseFloat(ffl[i+1]);
+				
+					Arr1[i-(3+var)] = Float.parseFloat(ffl[i]);
 
-						//System.out.println(""+Arr1[i-1]);
-						
-					}else{
-
-
-
-					}
+					//System.out.println(""+Arr1[i-1]);
+					++var;	
+					
 				}
+
+			}
+
+			for(int n = 0; n<Arr1.length; n++){
+
+				System.out.println(""+Arr1[n]);
 
 			}
 
