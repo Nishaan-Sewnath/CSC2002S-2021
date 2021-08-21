@@ -15,90 +15,65 @@ public class MedianFilt{
 		int med =0;
 		float[] numArr = new float[filtS];
 		float[] result = new float[arr.length];
+		
+		//System.out.println(""+arr.length);
 
-
-		med = (filtS+1)/2;
+		med = (filtS-1)/2;
 
 		for(int k = 0; k<arr.length; k++){
 
 
+			//System.out.println(arr[k]);
+			if(((k-med)>=0) && ((k+med)<arr.length)){
 			for(int z = 0; z<filtS; z++){
 
 				
-				if(!((k-med)<0)){
+				
 
-					
-					numArr[z] = arr[k-med];
+					for(int m = k-med; m<=k+med; m++){
+						numArr[z] = arr[m];
+						System.out.println("" + numArr[z]);
+					}
 
-
-
-				}
-
-
-
-			}
-			Arrays.sort(numArr);
-			
-			if(!((k-med)<0)){
-				result[k] = numArr[med];
-			}else{
-				result[k] = arr[k];
-
-			}
-		}
-		/*for(int i = 0; i < arr.length; i++){
-
-			if(i == 0){
-
-				if(arr[i]<arr[i+1]){
-
-					
-					result[i] = arr[i];
-
-
-				}else{
-
-					result[i] = arr[i+1];
-
-
-				}
-
-			}else if(i > arr.length-2){
-
-
-				if(arr[i]<arr[i+1]){
-
-					result[i] = arr[i];
-
-
-				}else{
-
-
-					result[i] = arr[i+1];
-
-
-				}
-
-			}else{
-
-				num1 = arr[i];
-				num2 = arr[i+1];
-				num3 = arr[i+2];
-
-				numArr[0] = num1;
-				numArr[1] = num2;
-				numArr[2] = num3;
+				System.out.println(" ");
 
 				Arrays.sort(numArr);
+			}
+				if(filtS==3){
+
+					System.out.println(numArr[med]+"\n");
+					result[k] = numArr[med];
 
 
-				result[i] = numArr[1];
+				}else{
+
+					int nMed = (filtS-1)/2;
+					result[k] = numArr[nMed];
+
+
+
+				}
+
+			
+
+				//Arrays.sort(numArr);
+				//result[k] = numArr[med];
+
+			}else{
+
+				
+				result[k] = arr[k];
+
+
 
 			}
+			
 
 
+			
+		
+		}
 
-		}*/
 
 		return result;
 
@@ -129,7 +104,7 @@ public class MedianFilt{
 
 		}
 
-		System.out.println(nInput[1]);
+		//System.out.println(nInput[1]);
 
 		try{
 
@@ -170,11 +145,11 @@ public class MedianFilt{
 
 			}
 
-			for(int n = 0; n<Arr1.length; n++){
+			/*for(int n = 0; n<Arr1.length; n++){
 
 				System.out.println(""+Arr1[n]);
 
-			}
+			}*/
 
 			result = getMedian(Arr1,filtS);
 
