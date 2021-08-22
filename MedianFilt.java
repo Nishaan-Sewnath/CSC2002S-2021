@@ -8,6 +8,22 @@ import java.io.*;
 public class MedianFilt{
 
 
+	static long startTime = 0;
+
+
+	private static void tick(){
+
+		startTime = System.nanoTime();
+
+	}
+
+	private static float tock(){
+
+		return (System.nanoTime()-startTime)/1000000.0f;
+
+	}
+
+
 	public static float[] getMedian(float[] arr, int filtS){
 
 		float temp =0.0f;
@@ -155,9 +171,15 @@ public class MedianFilt{
 
 			}
 
-			
+			result = new float[Arr1.length];
+			for(int a = 0; a<5; a++){
+				tick();
+				result = getMedian(Arr1,filtS);
+				float time = tock();
+				System.out.println("Run " + a + " took: "+ time+ " millisecond...");
+			}
 
-			result = getMedian(Arr1,filtS);
+
 
 			for(int j = 0; j<result.length; j++){
 

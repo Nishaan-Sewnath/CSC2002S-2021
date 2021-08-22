@@ -13,7 +13,7 @@ public class retArr extends RecursiveTask<String>{
 	private int hi=0;
 	private int filtS=0;
 	private int nMed =0;
-	private static final int SEQUENTIAL_CUTOFF=500;
+	private static final int SEQUENTIAL_CUTOFF=1000;
 
 	private float[] result;
 	private float[] coll1;

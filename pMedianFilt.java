@@ -80,7 +80,7 @@ public class pMedianFilt{
 
 		float[] result0;
 		float[] result1;
-		String result2;
+		String result2="";
 
 
 
@@ -121,6 +121,7 @@ public class pMedianFilt{
 
 
 			hold = hold.substring(1);
+			hold = hold.replace(",",".");
 			nums = hold.split(" ");
 			size = Integer.parseInt(nums[0]);
 
@@ -130,13 +131,15 @@ public class pMedianFilt{
 
 			result1 = getArray(nums, 0, 0, result0);
 
+			for(int k = 0; k<5; k++){
+				tick();
 
-			tick();
+				result2 = fArray(result1, filtS);
 
-			result2 = fArray(result1, filtS);
+				float time = tock();
+				System.out.println("Run "+ k+ " took: "+ time + " milliseconds...");
 
-			float time = tock();
-			System.out.println("Run took: "+ time + " milliseconds...");
+			}
 
 			result2 = result2.substring(1);
 			String[] arrStr = result2.split(" ");
@@ -144,14 +147,14 @@ public class pMedianFilt{
 
 			for(int i = 0; i<arrStr.length; i++){
 
-				System.out.println(arrStr[i]);
+				//System.out.println(arrStr[i]);
 
 				bw.write(arrStr[i] + "\n");
 
 
 			}
 
-			
+			bw.close();
 			
 	
 
