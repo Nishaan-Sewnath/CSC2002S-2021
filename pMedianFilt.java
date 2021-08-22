@@ -10,7 +10,30 @@ import java.io.*;
 
 public class pMedianFilt{
 
-	
+	static long startTime = 0;
+
+
+	private static void tick(){
+
+		startTime = System.nanoTime();
+
+	}
+
+	private static float tock(){
+
+		return (System.nanoTime()-startTime)/1000000.0f;
+
+	}
+
+	static final ForkJoinPool fjPool = new ForJoinPool();
+
+	static float[] fArray(float[] arr, int filtS){
+
+		return fjPool.invoke(new retArr(arr, 0, arr.length, filtS));
+
+
+	}
+
 
 	public static float[] getArray(String[] nums, int counter1, int counter2, float[] arr){
 
@@ -38,6 +61,8 @@ public class pMedianFilt{
 	}
 
 
+
+
 	public static void main(String [] args){
 
 		String input = "";
@@ -51,7 +76,8 @@ public class pMedianFilt{
 		int filtS = 0;
 		int size = 0;
 
-		float[] result;
+		float[] result1;
+		float[] result2;
 
 
 
@@ -99,7 +125,17 @@ public class pMedianFilt{
 
 			System.out.println(""+"a "+ nums[1]);
 
-			result = getArray(nums, 0, 0, result);
+			result1 = getArray(nums, 0, 0, result);
+			result2 = fArray(result1, 0, result1.length, filtS);
+
+
+			for(int i = 0; i<result2.length; i++){
+
+				System.out.println(""+result2[i]);
+
+
+			}
+	
 
 			
 
