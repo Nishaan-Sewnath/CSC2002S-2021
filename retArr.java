@@ -41,6 +41,8 @@ public class retArr extends RecursiveTask<String>{
 
 	protected String compute(){
 
+		String var1 = "";
+
 		if((hi-lo)<SEQUENTIAL_CUTOFF){
 			
 
@@ -50,16 +52,23 @@ public class retArr extends RecursiveTask<String>{
 				counter2 = j;
 				counter1 = 0;
 				nums = popArr(nums, counter1, counter2);
+				//getSort(nums);
 				counter1 = 0;
-				counter2 = counter1+1;
+				counter2 = 0;
 				nums = sortArray(nums, counter1, counter2);
-				System.out.println("Median: "+nums[nMed]);
-				return (""+nums[nMed]);
+
+				var1 = var1 + " " + nums[nMed];
+				//System.out.println("n");
+				//getSort(nums);
+				//System.out.println("y");
+				//System.out.println("Median: "+nums[nMed]);
+				//return (""+nums[nMed]);
 				}else{
 					
 
 					//System.out.println("Not in range: " + arr[j]);
-					return (""+arr[j]);
+					//return (""+arr[j]);
+					var1 = var1+" " + arr[j];
 
 
 				}
@@ -68,7 +77,7 @@ public class retArr extends RecursiveTask<String>{
 
 			}
 			
-			
+			return var1;
 
 
 		}else{
@@ -88,14 +97,14 @@ public class retArr extends RecursiveTask<String>{
 			return ans;
 		}
 
-		return ans;
+	
 	}
 
 
 	private float[] popArr(float[] nArr1, int c1, int c2){
 
 
-		if(c2 == filtS){
+		if(c1 == filtS){
 			
 			counter1 = 0;
 			return nArr1;
@@ -103,6 +112,7 @@ public class retArr extends RecursiveTask<String>{
 		}else{
 
 			nArr1[c1] = arr[c2-nMed];
+			//System.out.println(""+ nArr1[c1]);
 
 			return popArr(nArr1, ++c1, ++c2);
 
@@ -110,20 +120,18 @@ public class retArr extends RecursiveTask<String>{
 
 	}
 
-	public String[] getAnswer(String nAns){
+	public void getSort(float[] nAns){
 
-		String[] answer;
-		ans = ans.substring(1);
-		answer = ans.split(" ");
 
-		for(int i = 0; i<answer.length; i++){
 
-			System.out.println(answer[i]);
+		for(int i = 0; i<nAns.length; i++){
+
+			System.out.println(nAns[i]);
 
 
 		}
 
-		return answer;
+	
 
 
 
@@ -134,19 +142,29 @@ public class retArr extends RecursiveTask<String>{
 		float temp = 0.0f;
 		float temp2 = 0.0f;
 		float temp3 = 0.0f;
-
 	
+		
 
+		/*if(!(c1==0)){
+
+			c2 = c1+1;
+
+		}*/
+		//c2= c1+1;
 		if(c1 == nArr.length){
-
+			
+			counter1 = 0;
+			counter2 = 0;
 			return nArr;
 
 		}else{
 
-			temp = nArr[c1];
-			temp2 = nArr[c2];
-			if((temp>temp2)&& !(c2>=nArr.length)){
-
+			
+			if((nArr[c1] > nArr[c2]) && (c2<nArr.length)){
+				
+				//System.out.println("I ran!" + c2);
+				temp = nArr[c1];
+				temp2 = nArr[c2];
 				temp3 = temp;
 				nArr[c1] = temp2;
 				nArr[c2] = temp3;
@@ -154,9 +172,9 @@ public class retArr extends RecursiveTask<String>{
 
 
 			}else{
-				int tc = c1+2;
-
-				return sortArray(nArr, ++c1, tc);
+				
+				//System.out.println("I ran!");
+				return sortArray(nArr, ++c1, c2);
 
 			}
 			
