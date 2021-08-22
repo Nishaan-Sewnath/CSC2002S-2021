@@ -1,4 +1,6 @@
 //Nishaan Sewnath
+//CSC2002S-2021 Assignment 1
+//Sequential Program
 
 import java.util.*;
 import java.io.*;
@@ -12,52 +14,56 @@ public class MedianFilt{
 		float num1 =0.0f;
 		float num2 =0.0f;
 		float num3 =0.0f;
+		int temp1 =0;
 		int med =0;
 		float[] numArr = new float[filtS];
 		float[] result = new float[arr.length];
 		
-		//System.out.println(""+arr.length);
+		
 
 		med = (filtS-1)/2;
 
-		for(int k = 0; k<arr.length; k++){
+		for(int k = 0; k<arr.length; k++){ 
 
 
-			//System.out.println(arr[k]);
+	
 			if(((k-med)>=0) && ((k+med)<arr.length)){
 			for(int z = 0; z<filtS; z++){
 
 				
-				
+				temp1 = z;					
 
-					for(int m = k-med; m<=k+med; m++){
-						numArr[z] = arr[m];
-						System.out.println("" + numArr[z]);
-					}
+				for(int m = k-med; m<=k+med; m++){
+					
+					if(temp1>=filtS){
 
-				System.out.println(" ");
+						temp1 = 0;
+
+
+					}	
+						
+					numArr[temp1] = arr[m];
+					++temp1;
+
+						
+			
+						
+						
+				}
+
 
 				Arrays.sort(numArr);
-			}
-				if(filtS==3){
+				int nMed = (filtS-1)/2;
+				result[k] = numArr[nMed];				
+			
 
-					System.out.println(numArr[med]+"\n");
-					result[k] = numArr[med];
-
-
-				}else{
-
-					int nMed = (filtS-1)/2;
-					result[k] = numArr[nMed];
-
-
-
-				}
+				
 
 			
 
-				//Arrays.sort(numArr);
-				//result[k] = numArr[med];
+			}
+
+			
 
 			}else{
 
@@ -67,6 +73,9 @@ public class MedianFilt{
 
 
 			}
+
+
+			
 			
 
 
@@ -86,7 +95,7 @@ public class MedianFilt{
 		float[] result;
 		String temp = "";
 
-		System.out.println("Enter a file path and filter size: ");
+		System.out.println("Enter a file path and filter size and output file name respectively: ");
 		Scanner scn = new Scanner(System.in);
 
 		String input = scn.nextLine();
@@ -104,7 +113,7 @@ public class MedianFilt{
 
 		}
 
-		//System.out.println(nInput[1]);
+
 
 		try{
 
@@ -112,6 +121,8 @@ public class MedianFilt{
 			FileReader fl = new FileReader(nInput[0]);
 			BufferedReader br = new BufferedReader(fl);
 			String s = "";
+			FileWriter fw = new FileWriter(nInput[2]);
+			BufferedWriter bw = new BufferedWriter(fw);
 
 			while((s = br.readLine())!=null){
 
@@ -127,7 +138,7 @@ public class MedianFilt{
 
 			int numE = Integer.parseInt(ffl[1]);
 
-			//System.out.println(ffl[1]);
+			
 			float[] Arr1 = new float[numE];
 			int var = 0;
 
@@ -138,29 +149,24 @@ public class MedianFilt{
 				
 					Arr1[i-(3+var)] = Float.parseFloat(ffl[i]);
 
-					//System.out.println(""+Arr1[i-1]);
 					++var;	
 					
 				}
 
 			}
 
-			/*for(int n = 0; n<Arr1.length; n++){
-
-				System.out.println(""+Arr1[n]);
-
-			}*/
+			
 
 			result = getMedian(Arr1,filtS);
 
 			for(int j = 0; j<result.length; j++){
 
 
-				System.out.println(""+result[j]);
+				bw.write(""+result[j]+"\n");
 
 			}
 
-			
+			bw.close();
 
 
 
