@@ -43,49 +43,27 @@ public class retArr extends RecursiveTask<String>{
 
 		if((hi-lo)<SEQUENTIAL_CUTOFF){
 			
-			
-			/*for(int i = lo; i<hi; i++){
-				
-				if(counter1<(hi-lo)){
-					
-					addToArr(coll1, arr[i], counter1);
-
-
-				}else{
-					
-					counter1 =0;
-					//addToArr(coll1, arr[i], counter1);
-
-				}
-
-
-
-
-			}
-			counter1 = 0;*/
 
 			for(int j = lo; j<(hi); j++){
 
-				
+				if(((j-nMed)>=0) && ((j+nMed)<arr.length)){
 				counter2 = j;
-				if(!(count1<filtS)){
-
-					
-					counter1 = 0;
-
-					ans2 = ans2 + " " + nums[nMed];
-					//addToArr(nums, coll1[j], counter1);
-
-
+				counter1 = 0;
+				nums = popArr(nums, counter1, counter2);
+				counter1 = 0;
+				counter2 = counter1+1;
+				nums = sortArray(nums, counter1, counter2);
+				System.out.println("Median: "+nums[nMed]);
+				return (""+nums[nMed]);
 				}else{
+					
 
-					//counter1 = 0;
-					nums = popArr(nums, counter1, counter2);
-					counter1 = 0;
-					counter2 = 0;
-					nums = sortArray(nums, counter1, counter2);
+					//System.out.println("Not in range: " + arr[j]);
+					return (""+arr[j]);
+
 
 				}
+				
 
 
 			}
@@ -95,53 +73,55 @@ public class retArr extends RecursiveTask<String>{
 
 		}else{
 
-			retArr left = new retArr(result, lo, (hi+lo)/2);
-			retArr right = new retArr(result, (hi+lo)/2, hi);
+			retArr left = new retArr(result, lo, (hi+lo)/2, filtS);
+			retArr right = new retArr(result, (hi+lo)/2, hi, filtS);
 
 			
 			left.fork();
 			String rightAns = right.compute();
 			String leftAns = left.join();
+
+			//System.out.println("right: " + rightAns);
+			//System.out.println("left: "+ leftAns);
 			ans = ans + " " + leftAns + " " + rightAns;
 
-			return ans
+			return ans;
 		}
 
-
+		return ans;
 	}
 
-	private void addToArr(float[] nArr, float entry, int counter){
-
-
-			nArr[counter] = entry;
-			++counter1;
-		
-
-
-	}
 
 	private float[] popArr(float[] nArr1, int c1, int c2){
 
 
 		if(c2 == filtS){
 			
-			counter1 =0;
+			counter1 = 0;
 			return nArr1;
 
 		}else{
 
 			nArr1[c1] = arr[c2-nMed];
 
-			return popArray(nArr1, ++c1, ++c2);
+			return popArr(nArr1, ++c1, ++c2);
 
 		}
 
 	}
 
-	public String[] getAnswer(){
+	public String[] getAnswer(String nAns){
 
 		String[] answer;
+		ans = ans.substring(1);
 		answer = ans.split(" ");
+
+		for(int i = 0; i<answer.length; i++){
+
+			System.out.println(answer[i]);
+
+
+		}
 
 		return answer;
 
@@ -149,11 +129,13 @@ public class retArr extends RecursiveTask<String>{
 
 	}
 
-	private float[] sortArray(float[] nArr, int c1. int c2){
+	private float[] sortArray(float[] nArr, int c1, int c2){
 		
 		float temp = 0.0f;
 		float temp2 = 0.0f;
 		float temp3 = 0.0f;
+
+	
 
 		if(c1 == nArr.length){
 
@@ -162,7 +144,7 @@ public class retArr extends RecursiveTask<String>{
 		}else{
 
 			temp = nArr[c1];
-			temp2 = nArr[c2]
+			temp2 = nArr[c2];
 			if((temp>temp2)&& !(c2>=nArr.length)){
 
 				temp3 = temp;

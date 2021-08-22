@@ -2,8 +2,8 @@
 //CSC2002S-2021 Assignment 1
 //Parallel Program
 
-
-import java.util.*;
+import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
 import java.io.*;
 
 
@@ -25,11 +25,12 @@ public class pMedianFilt{
 
 	}
 
-	static final ForkJoinPool fjPool = new ForJoinPool();
+	static final ForkJoinPool fjPool = new ForkJoinPool();
 
-	static float[] fArray(float[] arr, int filtS){
-
-		return fjPool.invoke(new retArr(arr, 0, arr.length, filtS));
+	static String fArray(float[] arr, int filtS){
+		
+		retArr ret = new retArr(arr, 0, arr.length, filtS);
+		return fjPool.commonPool().invoke(ret);
 
 
 	}
@@ -76,8 +77,10 @@ public class pMedianFilt{
 		int filtS = 0;
 		int size = 0;
 
+
+		float[] result0;
 		float[] result1;
-		float[] result2;
+		String result2;
 
 
 
@@ -121,20 +124,35 @@ public class pMedianFilt{
 			nums = hold.split(" ");
 			size = Integer.parseInt(nums[0]);
 
-			result = new float[size];
+			result0 = new float[size];
 
-			System.out.println(""+"a "+ nums[1]);
+			//System.out.println(""+"a "+ nums[1]);
 
-			result1 = getArray(nums, 0, 0, result);
-			result2 = fArray(result1, 0, result1.length, filtS);
+			result1 = getArray(nums, 0, 0, result0);
 
 
-			for(int i = 0; i<result2.length; i++){
+			tick();
 
-				System.out.println(""+result2[i]);
+			result2 = fArray(result1, filtS);
+
+			float time = tock();
+			System.out.println("Run took: "+ time + " milliseconds...");
+
+			result2 = result2.substring(1);
+			String[] arrStr = result2.split(" ");
+
+
+			for(int i = 0; i<arrStr.length; i++){
+
+				System.out.println(arrStr[i]);
+
+				bw.write(arrStr[i] + "\n");
 
 
 			}
+
+			
+			
 	
 
 			
