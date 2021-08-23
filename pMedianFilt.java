@@ -129,18 +129,51 @@ public class pMedianFilt{
 
 			//System.out.println(""+"a "+ nums[1]);
 
-			result1 = getArray(nums, 0, 0, result0);
+			//result1 = getArray(nums, 0, 0, result0);
+			
+			float[] nm = new float[size];
+			int tmp1 = 0;
+			for(int m = 0; m<((size+1)*2)-1; m+=2){
 
-			for(int k = 0; k<5; k++){
+
+				if((m-3-tmp1)>=size){
+
+					break;
+
+				}
+				if((m!=0)){
+
+				nm[m-(2+tmp1)] = Float.parseFloat(nums[m]);
+				//System.out.println(""+nm[m-2-tmp1]);
+				
+				++tmp1;
+
+				}
+					
+
+				
+				
+			}
+		
+			//System.out.println("nm length: "+ nm.length);
+
+			/*for(int k = 0; k<5; k++){
 				tick();
 
-				result2 = fArray(result1, filtS);
+				result2 = fArray(nm, filtS);
 
 				float time = tock();
 				System.out.println("Run "+ k+ " took: "+ time + " milliseconds...");
 
-			}
+			}*/
 
+			tick();
+			result2 = fArray(nm, filtS);
+
+			float time = tock();
+
+			System.out.println("Run took: "+time+" milliseconds...");
+			
 			result2 = result2.substring(1);
 			String[] arrStr = result2.split(" ");
 

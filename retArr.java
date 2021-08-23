@@ -66,10 +66,11 @@ public class retArr extends RecursiveTask<String>{
 				}else{
 					
 
-					//System.out.println("Not in range: " + arr[j]);
+					//System.out.println("" + j);
 					//return (""+arr[j]);
-					var1 = var1+" " + arr[j];
-
+					if(j<arr.length){
+						var1 = var1+"0"+ arr[j];
+					}
 
 				}
 				
