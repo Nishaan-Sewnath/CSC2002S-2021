@@ -1,6 +1,10 @@
-//Nishaan Sewnath
-//CSC2002S-2021 Assignment 1
-//Parallel Program
+/**
+ *
+ *main class that runs the parallelism class
+ *@author Nishaan Sewnath
+ *
+ *
+ * */
 
 import java.util.Scanner;
 import java.util.concurrent.ForkJoinPool;
@@ -12,12 +16,25 @@ public class pMedianFilt{
 
 	static long startTime = 0;
 
+	
+	/**
+	 *starts the timer
+	 *
+	 * */
 
 	private static void tick(){
 
 		startTime = System.nanoTime();
 
 	}
+
+	/**
+	 *
+	 *Stops the timer
+	 *@return time in milliseconds
+	 *
+	 *
+	 * */
 
 	private static float tock(){
 
@@ -27,6 +44,15 @@ public class pMedianFilt{
 
 	static final ForkJoinPool fjPool = new ForkJoinPool();
 
+
+	/**
+	 *
+	 *intvokes the retArr program using fjJoinPool
+	 *@param arr the array being filtered
+	 *@param filtS the filter Size
+	 *@return the invoked program
+	 *
+	 * */
 	static String fArray(float[] arr, int filtS){
 		
 		retArr ret = new retArr(arr, 0, arr.length, filtS);
@@ -35,6 +61,19 @@ public class pMedianFilt{
 
 	}
 
+	
+	/**
+	 *
+	 *A recursive function that coverts the String array into a float array
+	 *
+	 *@param nums the String array being converted
+	 *@param counter1 counter for the new array
+	 *@param counter2 counter for the String array
+	 *@param arr the new float array
+	 *
+	 *@return the new float array
+	 *
+	 * */
 
 	public static float[] getArray(String[] nums, int counter1, int counter2, float[] arr){
 
@@ -60,6 +99,14 @@ public class pMedianFilt{
 
 
 	}
+
+
+	/**
+	 *
+	 *The main method
+	 *
+	 *
+	 * */
 
 
 
@@ -126,13 +173,9 @@ public class pMedianFilt{
 			size = Integer.parseInt(nums[0]);
 
 			result0 = new float[size];
-
-			//System.out.println(""+"a "+ nums[1]);
-
-			//result1 = getArray(nums, 0, 0, result0);
-			
 			float[] nm = new float[size];
 			int tmp1 = 0;
+
 			for(int m = 0; m<((size+1)*2)-1; m+=2){
 
 
@@ -144,8 +187,6 @@ public class pMedianFilt{
 				if((m!=0)){
 
 				nm[m-(2+tmp1)] = Float.parseFloat(nums[m]);
-				//System.out.println(""+nm[m-2-tmp1]);
-				
 				++tmp1;
 
 				}
@@ -154,27 +195,25 @@ public class pMedianFilt{
 				
 				
 			}
-		
-			//System.out.println("nm length: "+ nm.length);
+	
 			
-
+			//the code below runs the parallel program 15 times, sotres them in an array and gets the the average of each of the 15 trials
 			float[][] sum = new float[10][15];
 
 			for(int k = 0; k<10; k++){
 
 
 				for(int c = 0; c<15; c++){
-				tick();
+					tick();
 
-				result2 = fArray(nm, filtS);
+					result2 = fArray(nm, filtS);
 
-				float time = tock();
+					float time = tock();
 
-				sum[k][c] = time;
+					sum[k][c] = time;
 
 
 				}
-				//System.out.println("Run "+ k+ " took: "+ time + " milliseconds...");
 
 			}
 			
@@ -194,13 +233,6 @@ public class pMedianFilt{
 				sumTime = 0.0f;
 			}
 
-			//System.out.println(SEQUENTIAL_CUTOFF);
-			/*tick();
-			result2 = fArray(nm, filtS);
-
-			float time = tock();
-
-			System.out.println("Run took: "+time+" milliseconds...");*/
 			
 			result2 = result2.substring(1);
 			String[] arrStr = result2.split(" ");
@@ -208,7 +240,6 @@ public class pMedianFilt{
 
 			for(int i = 0; i<arrStr.length; i++){
 
-				//System.out.println(arrStr[i]);
 
 				bw.write(arrStr[i] + "\n");
 

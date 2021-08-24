@@ -1,6 +1,9 @@
-//Nishaan Sewnath
-//CSC2002S-2021 Assignment 1 Part2
-//Parallel Program
+/**
+ *This class is the brains behind the parallel filtering program
+ *
+ *@author Nishaan Sewnath
+ *
+ * */
 
 import java.util.concurrent.RecursiveTask;
 
@@ -25,7 +28,7 @@ public class retArr extends RecursiveTask<String>{
 	 *for sample input 1000000 sc = ;
 	 *for sample input 10000000 sc = ;
 	 *
-	 * */
+	 */
 
 	private float[] nums;
 	private float[] temp5;
@@ -35,6 +38,20 @@ public class retArr extends RecursiveTask<String>{
 	public int counter2 = 0;
 	private String ans ="";
 	private String ans2 = "";
+
+
+	/**
+	 *
+	 *The constuctor for the program
+	 *
+	 *@param arrN the array being filtered
+	 *@param l basically always atarts off as 0
+	 *@param h originally the length of arrN
+	 *@param filtS the filter size
+	 *
+	 *
+	 * */
+
 
 	public retArr(float[] arrN, int l, int h, int filt){
 
@@ -47,6 +64,15 @@ public class retArr extends RecursiveTask<String>{
 		nums = new float[filtS];
 
 	}
+
+
+	/**
+	 *
+	 *The part of the program that makes it a parallel program
+	 *
+	 *
+	 *
+	 * */
 
 
 	protected String compute(){
@@ -99,6 +125,21 @@ public class retArr extends RecursiveTask<String>{
 	}
 
 
+	/**
+	 *
+	 *This is a recursive method that populates an array of size filts
+	 *
+	 *@param nArr1 the resulting array
+	 *@param c1 the counter for the resulting array
+	 *@param c2 the counter for the old array
+	 *@param l the lo value
+	 *
+	 *@return the resulting array
+	 *
+	 *
+	 * */
+
+
 	private float[] popArr(float[] nArr1, int c1, int c2, int l){
 
 
@@ -116,22 +157,20 @@ public class retArr extends RecursiveTask<String>{
 
 	}
 
-	public void getSort(float[] nAns){
 
 
-
-		for(int i = 0; i<nAns.length; i++){
-
-			System.out.println(nAns[i]);
-
-
-		}
-
-	
-
-
-
-	}
+	/**
+	 *
+	 *A recursive method that sorts the array 
+	 *
+	 *@param nArr the array beign sorted
+	 *@param c1 the counter for the outer for loop
+	 *@param c2 the counter for the inner for loop
+	 *
+	 *@return the sorted array
+	 *
+	 *
+	 * */
 
 	private float[] sortArray(float[] nArr, int c1, int c2){
 		

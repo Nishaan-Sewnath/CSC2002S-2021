@@ -1,6 +1,8 @@
-//Nishaan Sewnath
-//CSC2002S-2021 Assignment 1
-//Sequential Program
+/**
+ *Class that filter's for the median number
+ *@author Nishaan Sewnath
+ * 
+ */
 
 import java.util.*;
 import java.io.*;
@@ -9,7 +11,12 @@ public class MedianFilt{
 
 
 	static long startTime = 0;
-
+	
+	/**
+	 *
+	 * starts the nano Timer
+	 *
+	 * */
 
 	private static void tick(){
 
@@ -17,11 +24,28 @@ public class MedianFilt{
 
 	}
 
+
+	/**
+	 *
+	 *@return returns the time in milliseconds
+	 *
+	 *
+	 * */
+
 	private static float tock(){
 
 		return (System.nanoTime()-startTime)/1000000.0f;
 
 	}
+
+
+	/**
+	 *
+	 *@param arr the array being filtered
+	 *@param filts the filter size
+	 *
+	 * @return the filtered array
+	 * */
 
 
 	public static float[] getMedian(float[] arr, int filtS){
@@ -105,6 +129,13 @@ public class MedianFilt{
 
 	}
 
+
+	/**
+	 *
+	 *main method that asks for the input, processes the textfile in question and produces a text file as an output
+	 *
+	 * */
+
 	public static void main(String []args){
 
 		String[] ffl;
@@ -173,7 +204,8 @@ public class MedianFilt{
 
 			result = new float[Arr1.length];
 			float[][] sum = new float[10][15];
-
+			
+			//below code gets multiple runs of the filter method  15 times, averages them 10 time and the prints the result 
 
 			for(int y = 0; y<10; y++){
 			for(int a = 0; a<15; a++){
@@ -181,7 +213,7 @@ public class MedianFilt{
 				result = getMedian(Arr1,filtS);
 				float time = tock();
 				sum[y][a] = time;
-				//System.out.println("Run " + a + " took: "+ time+ " millisecond...");
+			
 			}
 			}
 			
