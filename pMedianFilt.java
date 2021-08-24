@@ -156,23 +156,51 @@ public class pMedianFilt{
 			}
 		
 			//System.out.println("nm length: "+ nm.length);
+			
 
-			/*for(int k = 0; k<5; k++){
+			float[][] sum = new float[10][15];
+
+			for(int k = 0; k<10; k++){
+
+
+				for(int c = 0; c<15; c++){
 				tick();
 
 				result2 = fArray(nm, filtS);
 
 				float time = tock();
-				System.out.println("Run "+ k+ " took: "+ time + " milliseconds...");
 
-			}*/
+				sum[k][c] = time;
 
-			tick();
+
+				}
+				//System.out.println("Run "+ k+ " took: "+ time + " milliseconds...");
+
+			}
+			
+
+			float sumTime = 0.0f;
+
+			for(int b = 0; b<10; b++){
+
+				for(int d = 3; d<15; d++){
+
+
+					sumTime+=sum[b][d];
+				}
+
+				System.out.println("Average time of run " + b + " is " + sumTime+ " milliseconds...");
+
+				sumTime = 0.0f;
+			}
+
+			//System.out.println(SEQUENTIAL_CUTOFF);
+			/*tick();
 			result2 = fArray(nm, filtS);
 
 			float time = tock();
 
-			System.out.println("Run took: "+time+" milliseconds...");
+			System.out.println("Run took: "+time+" milliseconds...");*/
 			
 			result2 = result2.substring(1);
 			String[] arrStr = result2.split(" ");

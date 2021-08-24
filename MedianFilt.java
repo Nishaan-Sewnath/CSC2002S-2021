@@ -172,14 +172,37 @@ public class MedianFilt{
 			}
 
 			result = new float[Arr1.length];
-			for(int a = 0; a<5; a++){
+			float[][] sum = new float[10][15];
+
+
+			for(int y = 0; y<10; y++){
+			for(int a = 0; a<15; a++){
 				tick();
 				result = getMedian(Arr1,filtS);
 				float time = tock();
-				System.out.println("Run " + a + " took: "+ time+ " millisecond...");
+				sum[y][a] = time;
+				//System.out.println("Run " + a + " took: "+ time+ " millisecond...");
+			}
+			}
+			
+			float sumTime = 0.0f;
+
+			for(int v = 0; v<10; v++){
+
+			for(int b = 3; b<15; b++){
+
+		
+				sumTime = sumTime+sum[v][b];
+
 			}
 
+				System.out.println("Average time for run " + v + " is " + sumTime+" milliseconds...");
+				sumTime = 0.0f;
 
+
+
+			}
+				
 
 			for(int j = 0; j<result.length; j++){
 
