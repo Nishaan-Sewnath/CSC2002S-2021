@@ -7,16 +7,15 @@
 
 import java.util.concurrent.RecursiveTask;
 
-public class retArr extends RecursiveTask<String>{
+public class retArr extends RecursiveTask<float[]>{
 	
 
 	private float[] arr;
-	private float med=0;
 	private int lo=0;
 	private int hi=0;
 	private int filtS=0;
 	private int nMed =0;
-	private static final int SEQUENTIAL_CUTOFF= 20;
+	private static final int SEQUENTIAL_CUTOFF= 10;//450;
 
 	/*
 	 *
@@ -24,20 +23,18 @@ public class retArr extends RecursiveTask<String>{
 	 *for sample input 100 SC = 15;
 	 *for sample input 1000 sc = 30;
 	 *for sample input 10000 sc = 30;
-	 *for sample input 100000 sc = 25;
+	 *for sample input 100000 sc = 10;
 	 *for sample input 1000000 sc = ;
 	 *for sample input 10000000 sc = ;
 	 *
 	 */
 
-	private float[] nums;
-	private float[] temp5;
+	
 
 
 	public int counter1 = 0;;
 	public int counter2 = 0;
-	private String ans ="";
-	private String ans2 = "";
+	
 
 
 	/**
@@ -75,27 +72,34 @@ public class retArr extends RecursiveTask<String>{
 	 * */
 
 
-	protected String compute(){
+	protected float[] compute(){
 
-		String var1 = "";
+		int var1 = 0;
 		
 
 		if((hi-lo)<SEQUENTIAL_CUTOFF){
-			
+			float[] arrm = new float[hi-lo];
 
 			for(int j = lo; j<(hi); j++){
+
+				
 
 				if(((j-nMed)>=0) && ((j+nMed)<arr.length)){
 				counter2 = j;
 				counter1 = 0;
-				nums = popArr(nums, counter1, counter2, lo);
+				nums = popArr(nums, counter1, counter2);
 				nums = sortArray(nums, 0, 0);
-				var1 = var1 + " " + nums[nMed];
+				arrm[var1] =  nums[nMed];
+				
+				++var1;
 				}else{
 					
-					if(j<arr.length){
-						var1 = var1+" "+ arr[j];
-					}
+			
+						arrm[var1] = arr[j];
+						
+						++var1;
+
+					
 
 				}
 				
@@ -103,7 +107,7 @@ public class retArr extends RecursiveTask<String>{
 
 			}
 			
-			return var1;
+			return arrm;
 
 
 		}else{
@@ -113,12 +117,13 @@ public class retArr extends RecursiveTask<String>{
 
 			
 			left.fork();
-			String rightAns = right.compute();
-			String leftAns = left.join();
+			float[] rightAns = right.compute();
+			float[] leftAns = left.join();
 
-			ans = ans + leftAns + rightAns;
+			
+			float[] newf = addArr(leftAns, rightAns);
 
-			return ans;
+			return newf;
 		}
 
 	
@@ -132,7 +137,7 @@ public class retArr extends RecursiveTask<String>{
 	 *@param nArr1 the resulting array
 	 *@param c1 the counter for the resulting array
 	 *@param c2 the counter for the old array
-	 *@param l the lo value
+	 *
 	 *
 	 *@return the resulting array
 	 *
@@ -140,7 +145,7 @@ public class retArr extends RecursiveTask<String>{
 	 * */
 
 
-	private float[] popArr(float[] nArr1, int c1, int c2, int l){
+	private float[] popArr(float[] nArr1, int c1, int c2){
 
 
 		if(c1 == filtS){
@@ -154,6 +159,37 @@ public class retArr extends RecursiveTask<String>{
 			return popArr(nArr1, ++c1, ++c2, l);
 
 		}
+
+	}
+
+	/**
+	 * Appends one array to another
+	 * @param arr1 first array
+	 * @param arr2 second array
+	 * @return first+second arrays combined
+	 *
+	 */
+
+	private float[] addArr(float[] arr1, float[] arr2){
+
+
+		float[] newArr = new float[arr1.length + arr2.length];
+
+		for(int y = 0; y<arr1.length; y++){
+
+			newArr[y] = arr1[y];
+
+		}
+
+		for(int f = 0; f<arr2.length; f++){
+
+			newArr[arr1.length+f] = arr2[f];
+
+
+		}
+
+
+		return newArr;
 
 	}
 

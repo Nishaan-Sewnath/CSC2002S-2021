@@ -53,7 +53,7 @@ public class pMedianFilt{
 	 *@return the invoked program
 	 *
 	 * */
-	static String fArray(float[] arr, int filtS){
+	static float[] fArray(float[] arr, int filtS){
 		
 		retArr ret = new retArr(arr, 0, arr.length, filtS);
 		return fjPool.commonPool().invoke(ret);
@@ -61,44 +61,6 @@ public class pMedianFilt{
 
 	}
 
-	
-	/**
-	 *
-	 *A recursive function that coverts the String array into a float array
-	 *
-	 *@param nums the String array being converted
-	 *@param counter1 counter for the new array
-	 *@param counter2 counter for the String array
-	 *@param arr the new float array
-	 *
-	 *@return the new float array
-	 *
-	 * */
-
-	public static float[] getArray(String[] nums, int counter1, int counter2, float[] arr){
-
-
-
-		if(counter1 == (arr.length)){
-
-			return arr;
-
-		}else{
-
-			if((counter2 != 0)&&(counter2%2==0)){
-				arr[counter1] = Float.parseFloat(nums[counter2]);
-				return getArray(nums, ++counter1, ++counter2, arr);
-			}else{
-				
-				return getArray(nums, counter1, ++counter2, arr);
-				
-			}
-
-		}	
-		
-
-
-	}
 
 
 	/**
@@ -117,17 +79,13 @@ public class pMedianFilt{
 		String[] nInput;
 		String fileInName = "";
 		String fileOutName = "";
-		String[] nums;
-		String hold = "";
+		
+		
 
 
 		int filtS = 0;
-		int size = 0;
-
-
-		float[] result0;
-		float[] result1;
-		String result2="";
+		
+		float [] result2;
 
 
 
@@ -152,53 +110,40 @@ public class pMedianFilt{
 
 		try{
 
-			FileReader fr = new FileReader(fileInName);
+			
 			FileWriter fw = new FileWriter(fileOutName);
-			BufferedReader br = new BufferedReader(fr);
+         
+         	File fl = new File(fileInName);
+         	Scanner br = new Scanner(fl);
+			
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			String s = "";
+			int nsize = Integer.parseInt(br.nextLine());
+         
+         
+		 	float[] nm = new float[nsize];
+			result2 = new float[nsize];
 
-
-			while((s=br.readLine()) != null){
-
-				hold = hold + " " + s;
-
-			}
-
-
-			hold = hold.substring(1);
-			hold = hold.replace(",",".");
-			nums = hold.split(" ");
-			size = Integer.parseInt(nums[0]);
-
-			result0 = new float[size];
-			float[] nm = new float[size];
-			int tmp1 = 0;
-
-			for(int m = 0; m<((size+1)*2)-1; m+=2){
-
-
-				if((m-3-tmp1)>=size){
-
-					break;
-
-				}
-				if((m!=0)){
-
-				nm[m-(2+tmp1)] = Float.parseFloat(nums[m]);
-				++tmp1;
-
-				}
-					
+         	int counter = 0;
+			while(br.hasNextLine()){
+            	String tempo = br.nextLine();
+            	String[] arry = tempo.split(" ");
+				nm[counter] = Float.parseFloat(arry[1].replace(",","."));
 
 				
-				
+            	++counter;
+
 			}
+         
+         
+
 	
 			
-			//the code below runs the parallel program 15 times, sotres them in an array and gets the the average of each of the 15 trials
+			//the code below runs the parallel program 15 times, stores them in an array and gets the the average of each of the 15 trials
 			float[][] sum = new float[10][15];
+         
+         
+        
 
 			for(int k = 0; k<10; k++){
 
@@ -234,14 +179,13 @@ public class pMedianFilt{
 			}
 
 			
-			result2 = result2.substring(1);
-			String[] arrStr = result2.split(" ");
+			
 
 
-			for(int i = 0; i<arrStr.length; i++){
+			for(int i = 0; i<result2.length; i++){
 
 
-				bw.write(arrStr[i] + "\n");
+				bw.write(result2[i] + "\n");
 
 
 			}
