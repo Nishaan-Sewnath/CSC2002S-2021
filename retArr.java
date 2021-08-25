@@ -35,7 +35,7 @@ public class retArr extends RecursiveTask<float[]>{
 	public int counter1 = 0;;
 	public int counter2 = 0;
 	
-
+	public float[] nums;
 
 	/**
 	 *
@@ -156,7 +156,7 @@ public class retArr extends RecursiveTask<float[]>{
 
 			nArr1[c1] = arr[c2-nMed];
 
-			return popArr(nArr1, ++c1, ++c2, l);
+			return popArr(nArr1, ++c1, ++c2);
 
 		}
 
